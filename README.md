@@ -1,11 +1,6 @@
 # Certificate-Generator-and-SenderHere’s a professional and informative **`README.md`** file for your GitHub repo:  
 [`Certificate_Generator_and_Sender`](https://github.com/suyash1702/Certificate_Generator_and_Sender)
 
----
-
-### 📄 `README.md`
-
-```markdown
 # 🏆 Certificate Generator and Sender
 
 This project automates the process of generating participation certificates from a Canva-designed template using student data from an Excel sheet. It also includes functionality to customize the certificate text (like inserting student name and event) and optionally send the certificates via email.
