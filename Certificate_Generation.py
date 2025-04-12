@@ -6,9 +6,56 @@ from email.message import EmailMessage
 import os
 import time
 
+# Custom CSS for styling
+st.markdown("""
+    <style>
+    .stTextInput, .stTextArea, .stFileUploader {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .stTextInput:focus, .stTextArea:focus, .stFileUploader:focus {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    .stButton>button {
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 24px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .stButton>button:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Streamlit app
 st.set_page_config(page_title="Certificate Generator", page_icon=":trophy:", layout="wide")
 st.title("🏆 Certificate Generator and Sender")
+
+# Day and Night Mode
+mode = st.sidebar.radio("Choose Mode", ("Day", "Night"))
+if mode == "Night":
+    st.markdown(
+        """
+        <style>
+        body {
+            background-color: #2E2E2E;
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
 
 # Sidebar for inputs
 st.sidebar.header("Upload and Configure")
@@ -20,7 +67,7 @@ template_path = st.sidebar.text_input("Certificate Template Path", "Final_1.png"
 # Custom message
 st.sidebar.header("Customize Message")
 custom_message = st.sidebar.text_area("Custom Message", "For participation in {event}, organized by Computer Department under \n"
-"               ASCII in collaboration with PRECCON on April 12, 2025.")
+"              ASCII in collaboration with PRECCON on April 12, 2025.")
 
 # Display uploaded data
 if uploaded_file:
@@ -52,7 +99,7 @@ if st.button("Generate and Send Certificates"):
             event_position = (1000, 813)
 
             # Draw name and event
-            draw.text(name_position, name, font=font_name, fill="black", anchor="mm")
+            draw.text(name_position, name, font=font_name, fill="#C99D49", anchor="mm")
             event_text = custom_message.format(event=event)
             draw.text(event_position, event_text, font=font_event_description, fill="black", anchor="mm")
 
