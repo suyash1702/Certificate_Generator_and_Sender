@@ -4,25 +4,28 @@ from PIL import Image, ImageDraw, ImageFont
 import smtplib
 from email.message import EmailMessage
 import os
+import time
 
 # Streamlit app
-st.title("Certificate Generator and Sender")
+st.set_page_config(page_title="Certificate Generator", page_icon=":trophy:", layout="wide")
+st.title("🏆 Certificate Generator and Sender")
 
-# Upload CSV
-uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
-if uploaded_file:
-    df = pd.read_csv(uploaded_file)
-    st.write(df)
-
-# Email configuration
-email_address = st.text_input("Your Email Address")
-email_password = st.text_input("Your App Password", type="password")
+# Sidebar for inputs
+st.sidebar.header("Upload and Configure")
+uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
+email_address = st.sidebar.text_input("Your Email Address")
+email_password = st.sidebar.text_input("Your App Password", type="password")
+template_path = st.sidebar.text_input("Certificate Template Path", "Final_1.png")
 
 # Custom message
-custom_message = st.text_area("Custom Message", "For participation in {event}, organized by Computer Department under ASCII in collaboration with PRECCON on April 12, 2025.")
+st.sidebar.header("Customize Message")
+custom_message = st.sidebar.text_area("Custom Message", "For participation in {event}, organized by Computer Department under \n"
+"               ASCII in collaboration with PRECCON on April 12, 2025.")
 
-# Certificate template
-template_path = st.text_input("Certificate Template Path", "Final_1.png")
+# Display uploaded data
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.write("### Uploaded Data", df)
 
 # Generate and send certificates
 if st.button("Generate and Send Certificates"):
@@ -34,6 +37,7 @@ if st.button("Generate and Send Certificates"):
         # Make sure 'certificates' folder exists
         os.makedirs("certificates", exist_ok=True)
 
+        progress_bar = st.progress(0)
         for index, row in df.iterrows():
             name = row['Name']
             event = row['Event']
@@ -75,6 +79,8 @@ if st.button("Generate and Send Certificates"):
                 smtp.send_message(msg)
 
             st.success(f"Certificate created and sent to {name} at {email}")
+            progress_bar.progress((index + 1) / len(df))
 
+        st.balloons()  # Add a balloon animation when done
     else:
         st.error("Please provide all required inputs.")
