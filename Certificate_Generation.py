@@ -62,7 +62,7 @@ if st.button("Generate and Send Certificates"):
 
             # Send the certificate via email
             subject = f"Certificate for {event}"
-            body = f"Dear {name},\n\n{event_text}\n\nBest regards,\nYour Organization"
+            body = f"Dear {name},\n\n{event_text}\n\nBest regards,\nComputer Department \nPREC Loni"
             msg = EmailMessage()
             msg['Subject'] = subject
             msg['From'] = email_address
