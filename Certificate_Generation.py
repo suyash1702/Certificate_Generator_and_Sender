@@ -15,7 +15,7 @@ st.sidebar.header("Upload and Configure")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=["csv"])
 email_address = st.sidebar.text_input("Your Email Address")
 email_password = st.sidebar.text_input("Your App Password", type="password")
-template_path = st.sidebar.text_input("Certificate Template Path", "Final_1.png")
+template_path = st.sidebar.text_input("Certificate Template Path", "ASCII_CERTIFICATE.png")
 
 # Custom message
 st.sidebar.header("Customize Message")
@@ -32,7 +32,7 @@ if st.button("Generate and Send Certificates"):
     if uploaded_file and email_address and email_password:
         # Load fonts
         font_name = ImageFont.truetype("Fonts/Shelley.ttf", 175)
-        font_event_description = ImageFont.truetype("Fonts/Cormorant.ttf", 45)
+        font_event_description = ImageFont.truetype("Fonts/Cormorant.ttf", 48)
 
         # Make sure 'certificates' folder exists
         os.makedirs("certificates", exist_ok=True)
@@ -48,8 +48,8 @@ if st.button("Generate and Send Certificates"):
             draw = ImageDraw.Draw(cert)
 
             # Example coordinates - adjust to your layout
-            name_position = (1020, 640)
-            event_position = (1000, 813)
+            name_position = (1020, 670)
+            event_position = (1000, 845)
 
             # Draw name and event
             draw.text(name_position, name, font=font_name, fill="#C99D49", anchor="mm")
